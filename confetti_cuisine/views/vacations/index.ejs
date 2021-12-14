@@ -1,0 +1,55 @@
+<h2 class="center">Culinary Vacations Package Table </h2>
+
+<% if (loggedIn) { %>
+  <div class="center">
+    <a class="button" href="/vacations/new">Create New Culinary Vacation Package</a>
+  </div>
+<%} else {%>
+  <a class="button" onclick="alert('Please login in to create the vacation!');">Create New Culinary Vacation Package</a>
+<%}%>
+<table class="table">
+  <thead>
+  <tr>
+    <th>Title</th>
+    <th>Description</th>
+      <% if (loggedIn) { %>
+    <th>Edit</th>
+    <th>Delete</th>
+      <%}%>
+  </tr>
+  </thead>
+  <tbody>
+  <% vacations.forEach(vacation => { %>
+  <tr>
+    <td>
+      <a href="<%= `/vacations/${vacation._id}` %>">
+          <%= vacation.title %>
+      </a>
+    </td>
+    <td>
+        <%= vacation.description %>
+    </td>
+      <% if (loggedIn) { %>
+    <td>
+      <a href="<%=`vacations/${vacation._id}/edit`%>">
+        Edit
+      </a>
+    </td>
+    <td>
+      <a href="<%= `vacations/${vacation._id}/delete?_method=DELETE` %>" onclick="return confirm('Are you sure you want to delete this record?')" a>Delete</a>
+    </td>
+      <%} else {%>
+    <td>
+      <a onclick="alert('Please login in to edit the vacation!');">
+        Edit
+      </a>
+    </td>
+
+    <td>
+      <a onclick="alert('Please login in to delete the vacation!');">Delete</a>
+    </td>
+      <%}%>
+  </tr>
+  <% }); %>
+  </tbody>
+</table>
